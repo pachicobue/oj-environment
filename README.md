@@ -1,7 +1,7 @@
 # contest
 競プロのコンテスト環境
 
-algolibを更新する
+algolib,ac-library を更新する
 ```sh
 $ git submodule update --remote --merge
 ```
