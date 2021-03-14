@@ -1,0 +1,3 @@
+[submodule "algolib"]
+	path = algolib
+	url = git@github.com:pachicobue/algolib.git
