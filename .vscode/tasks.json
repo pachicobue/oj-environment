@@ -1,0 +1,122 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "build",
+            "command": "/usr/sbin/g++",
+            "args": [
+                "${file}",
+                "-o",
+                "${fileBasenameNoExtension}.exe",
+                "-std=c++17",
+                "-O0",
+                "-g3",
+                "-Wall",
+                "-Wextra",
+                "-fsanitize=undefined",
+                "-D",
+                "HOGEPACHI",
+                "-D",
+                "_GLIBCXX_DEBUG",
+                "-I",
+                "${workspaceFolder}/algolib/src",
+                "-I",
+                "${workspaceFolder}/ac-library"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "現在開いているファイルをビルドする"
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-rf",
+                "${fileBasenameNoExtension}_case"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "dependsOn": [],
+            "problemMatcher": [],
+            "detail": "テストケースを削除する"
+        },
+        {
+            "label": "download",
+            "type": "shell",
+            "command": "~/.local/bin/oj",
+            "args": [
+                "dl",
+                "${input:URL}",
+                "--directory=\"${fileBasenameNoExtension}_case\""
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "dependsOn": [
+                "clean"
+            ],
+            "problemMatcher": [],
+            "group": "test",
+            "detail": "テストケースをダウンロード"
+        },
+        {
+            "label": "test",
+            "type": "shell",
+            "command": "~/.local/bin/oj",
+            "args": [
+                "test",
+                "--directory=\"${fileBasenameNoExtension}_case\"",
+                "--command=\"./${fileBasenameNoExtension}.exe\""
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "dependsOn": [
+                "build"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "detail": "現在開いているファイルをテスト"
+        },
+        {
+            "label": "expand",
+            "type": "shell",
+            "command": "python3",
+            "args": [
+                "${workspaceFolder}/algolib/scripts/expand.py",
+                "${file}",
+                "-I",
+                "${workspaceFolder}/algolib/src",
+                "${workspaceFolder}/ac-library"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "dependsOn": [],
+            "problemMatcher": [],
+            "group": "test",
+            "detail": "現在開いているファイルを展開"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "URL",
+            "type": "promptString",
+            "description": "URL of problem"
+        }
+    ]
+}
