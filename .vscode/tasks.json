@@ -314,7 +314,25 @@
             },
             "dependsOn": [],
             "problemMatcher": [],
-            "group": "test",
+            "detail": "現在開いているファイルを展開"
+        },
+        {
+            "type": "shell",
+            "label": "expand(file)",
+            "command": "python3",
+            "args": [
+                "${workspaceFolder}/tools/expander/main.py",
+                "${file}",
+                "-I",
+                "${workspaceFolder}/algolib/src",
+                "${workspaceFolder}/ac-library",
+                "--save_output",
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "dependsOn": [],
+            "problemMatcher": [],
             "detail": "現在開いているファイルを展開"
         }
     ],
