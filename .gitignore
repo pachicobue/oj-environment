@@ -1,3 +1,12 @@
+# ccls output
+.ccls-cache
+
+# python cache
+__pycache__
+
+# dummy headers
+tools/expander/dummy_headers
+
 # Answer
 virtual
 

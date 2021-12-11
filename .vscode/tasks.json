@@ -2,9 +2,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "type": "cppbuild",
+            "type": "shell",
             "label": "build",
-            "command": "/usr/sbin/clang++",
+            "command": "/usr/sbin/g++",
             "args": [
                 "${file}",
                 "-o",
@@ -14,6 +14,7 @@
                 "-g3",
                 "-Wall",
                 "-Wextra",
+                "-Wno-unknown-pragmas",
                 "-fsanitize=undefined",
                 "-D",
                 "HOGEPACHI",
@@ -30,19 +31,98 @@
             "problemMatcher": [
                 "$gcc"
             ],
+            "detail": "現在開いているファイルをビルドする",
             "group": {
                 "kind": "build",
                 "isDefault": true
-            },
-            "detail": "現在開いているファイルをビルドする"
+            }
         },
         {
-            "label": "clean",
             "type": "shell",
+            "label": "build(Release)",
+            "command": "/usr/sbin/g++",
+            "args": [
+                "${file}",
+                "-o",
+                "${fileBasenameNoExtension}.exe",
+                "-std=c++17",
+                "-O2",
+                "-Wall",
+                "-Wextra",
+                "-Wno-unknown-pragmas",
+                "-D",
+                "HOGEPACHI",
+                "-I",
+                "${workspaceFolder}/algolib/src",
+                "-I",
+                "${workspaceFolder}/ac-library"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "現在開いているファイルをReleaseビルドする",
+        },
+        {
+            "type": "shell",
+            "label": "build input generator",
+            "command": "/usr/sbin/g++",
+            "args": [
+                "${fileBasenameNoExtension}_gi.cpp",
+                "-D",
+                "HOGEPACHI",
+                "-o",
+                "${fileBasenameNoExtension}_gi.exe",
+                "-std=c++17",
+                "-O2",
+                "-I",
+                "${workspaceFolder}/algolib/src",
+                "-I",
+                "${workspaceFolder}/ac-library"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "入力生成器をビルドする"
+        },
+        {
+            "type": "shell",
+            "label": "build output generator",
+            "command": "/usr/sbin/g++",
+            "args": [
+                "${fileBasenameNoExtension}_go.cpp",
+                "-D",
+                "HOGEPACHI",
+                "-o",
+                "${fileBasenameNoExtension}_go.exe",
+                "-std=c++17",
+                "-O2",
+                "-I",
+                "${workspaceFolder}/algolib/src",
+                "-I",
+                "${workspaceFolder}/ac-library"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "出力生成器をビルドする"
+        },
+        {
+            "type": "shell",
+            "label": "clean",
             "command": "rm",
             "args": [
                 "-rf",
-                "${fileBasenameNoExtension}_case"
+                "${fileBasenameNoExtension}_case",
+                "${fileBasenameNoExtension}.exe"
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -52,12 +132,12 @@
             "detail": "テストケースを削除する"
         },
         {
-            "label": "download",
             "type": "shell",
+            "label": "download",
             "command": "~/.local/bin/oj",
             "args": [
                 "dl",
-                "${input:URL}",
+                "\"${input:URL}\"",
                 "--directory=\"${fileBasenameNoExtension}_case\""
             ],
             "options": {
@@ -71,8 +151,8 @@
             "detail": "テストケースをダウンロード"
         },
         {
-            "label": "test",
             "type": "shell",
+            "label": "test",
             "command": "~/.local/bin/oj",
             "args": [
                 "test",
@@ -93,15 +173,141 @@
             "detail": "現在開いているファイルをテスト"
         },
         {
-            "label": "expand",
             "type": "shell",
+            "label": "test(TLE)",
+            "command": "~/.local/bin/oj",
+            "args": [
+                "test",
+                "--tle",
+                "2",
+                "--directory=\"${fileBasenameNoExtension}_case\"",
+                "--command=\"./${fileBasenameNoExtension}.exe\""
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "dependsOn": [
+                "build(Release)"
+            ],
+            "problemMatcher": [],
+            "detail": "現在開いているファイルをテスト(TLE)"
+        },
+        {
+            "type": "shell",
+            "label": "hack",
+            "command": "~/.local/bin/oj",
+            "args": [
+                "g/i",
+                "--hack-actual",
+                "./${fileBasenameNoExtension}.exe",
+                "--hack-expected",
+                "./${fileBasenameNoExtension}_go.exe",
+                "--directory=\"${fileBasenameNoExtension}_case\"",
+                "./${fileBasenameNoExtension}_gi.exe"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "dependsOn": [
+                "build",
+                "build input generator",
+                "build output generator"
+            ],
+            "problemMatcher": [],
+            "detail": "Hackケース生成"
+        },
+        {
+            "type": "shell",
+            "label": "generate input",
+            "command": "~/.local/bin/oj",
+            "args": [
+                "g/i",
+                "--directory=\"${fileBasenameNoExtension}_case\"",
+                "./${fileBasenameNoExtension}_gi.exe"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "dependsOn": [
+                "build input generator"
+            ],
+            "problemMatcher": [],
+            "detail": "入力生成"
+        },
+        {
+            "type": "shell",
+            "label": "generate output",
+            "command": "~/.local/bin/oj",
+            "args": [
+                "g/o",
+                "--directory=\"${fileBasenameNoExtension}_case\"",
+                "-c",
+                "./${fileBasenameNoExtension}_go.exe"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "dependsOn": [
+                "build output generator"
+            ],
+            "problemMatcher": [],
+            "detail": "出力生成"
+        },
+        {
+            "type": "shell",
+            "label": "hack(RE)",
+            "command": "~/.local/bin/oj",
+            "args": [
+                "g/i",
+                "--tle",
+                "3",
+                "--hack-actual",
+                "./${fileBasenameNoExtension}.exe",
+                "--directory=\"${fileBasenameNoExtension}_case\"",
+                "./${fileBasenameNoExtension}_gi.exe"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "dependsOn": [
+                "build",
+                "build input generator"
+            ],
+            "problemMatcher": [],
+            "detail": "Hackケース生成(RE用)"
+        },
+        {
+            "type": "shell",
+            "label": "hack(RE/TLE)",
+            "command": "~/.local/bin/oj",
+            "args": [
+                "g/i",
+                "--hack-actual",
+                "./${fileBasenameNoExtension}.exe",
+                "--directory=\"${fileBasenameNoExtension}_case\"",
+                "./${fileBasenameNoExtension}_gi.exe"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "dependsOn": [
+                "build(Release)",
+                "build input generator"
+            ],
+            "problemMatcher": [],
+            "detail": "Hackケース生成(RE,TLE用)"
+        },
+        {
+            "type": "shell",
+            "label": "expand",
             "command": "python3",
             "args": [
-                "${workspaceFolder}/algolib/scripts/expand.py",
+                "${workspaceFolder}/tools/expander/main.py",
                 "${file}",
                 "-I",
                 "${workspaceFolder}/algolib/src",
-                "${workspaceFolder}/ac-library"
+                "${workspaceFolder}/ac-library",
+                "--save_to_clipboard"
             ],
             "options": {
                 "cwd": "${fileDirname}"
