@@ -28,9 +28,7 @@
             "options": {
                 "cwd": "${fileDirname}"
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "problemMatcher": [],
             "detail": "現在開いているファイルをビルドする",
             "group": {
                 "kind": "build",
@@ -60,9 +58,7 @@
             "options": {
                 "cwd": "${fileDirname}"
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "problemMatcher": [],
             "detail": "現在開いているファイルをReleaseビルドする",
         },
         {
@@ -85,9 +81,7 @@
             "options": {
                 "cwd": "${fileDirname}"
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "problemMatcher": [],
             "detail": "入力生成器をビルドする"
         },
         {
@@ -110,9 +104,7 @@
             "options": {
                 "cwd": "${fileDirname}"
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "problemMatcher": [],
             "detail": "出力生成器をビルドする"
         },
         {
