@@ -57,6 +57,7 @@ ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
 Cpp11BracedListStyle: true
 FixNamespaceComments: true
+ForEachMacros: ['LOOP']
 
 IncludeBlocks: Regroup
 IncludeCategories:
