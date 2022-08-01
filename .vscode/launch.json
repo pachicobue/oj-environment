@@ -11,7 +11,7 @@
             "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
             "args": [
                 "<",
-                "${fileBasenameNoExtension}_case/sample-3.in"
+                "${fileBasenameNoExtension}_case/sample-1.in"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
