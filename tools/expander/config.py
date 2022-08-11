@@ -4,7 +4,7 @@ from common import *
 
 
 # (bits/stdc++.h が存在するような)system include dir
-system_include_dir = Path("n/usr/iclude/c++/12.1.0/x86_64-pc-linux-gnu/")  # type:Path
+system_include_dir = Path("/usr/include/c++/12.1.1/x86_64-pc-linux-gnu/")  # type:Path
 
 # ダミーヘッダーの生成先
 dummy_include_dir = script_root_dir / "dummy_headers"  # type:Path
