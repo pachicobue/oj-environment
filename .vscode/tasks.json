@@ -33,6 +33,14 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
             }
         },
         {
@@ -60,6 +68,14 @@
             },
             "problemMatcher": [],
             "detail": "現在開いているファイルをReleaseビルドする",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            }
         },
         {
             "type": "shell",
@@ -82,7 +98,15 @@
                 "cwd": "${fileDirname}"
             },
             "problemMatcher": [],
-            "detail": "入力生成器をビルドする"
+            "detail": "入力生成器をビルドする",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            }
         },
         {
             "type": "shell",
@@ -105,7 +129,15 @@
                 "cwd": "${fileDirname}"
             },
             "problemMatcher": [],
-            "detail": "出力生成器をビルドする"
+            "detail": "出力生成器をビルドする",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            }
         },
         {
             "type": "shell",
@@ -121,7 +153,15 @@
             },
             "dependsOn": [],
             "problemMatcher": [],
-            "detail": "テストケースを削除する"
+            "detail": "テストケースを削除する",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            }
         },
         {
             "type": "shell",
@@ -140,7 +180,15 @@
             ],
             "problemMatcher": [],
             "group": "test",
-            "detail": "テストケースをダウンロード"
+            "detail": "テストケースをダウンロード",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            }
         },
         {
             "type": "shell",
@@ -162,7 +210,15 @@
                 "kind": "test",
                 "isDefault": true
             },
-            "detail": "現在開いているファイルをテスト"
+            "detail": "現在開いているファイルをテスト",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            }
         },
         {
             "type": "shell",
@@ -182,7 +238,15 @@
                 "build(Release)"
             ],
             "problemMatcher": [],
-            "detail": "現在開いているファイルをテスト(TLE)"
+            "detail": "現在開いているファイルをテスト(TLE)",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            }
         },
         {
             "type": "shell",
@@ -206,44 +270,15 @@
                 "build output generator"
             ],
             "problemMatcher": [],
-            "detail": "Hackケース生成"
-        },
-        {
-            "type": "shell",
-            "label": "generate input",
-            "command": "~/.local/bin/oj",
-            "args": [
-                "g/i",
-                "--directory=\"${fileBasenameNoExtension}_case\"",
-                "./${fileBasenameNoExtension}_gi.exe"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "dependsOn": [
-                "build input generator"
-            ],
-            "problemMatcher": [],
-            "detail": "入力生成"
-        },
-        {
-            "type": "shell",
-            "label": "generate output",
-            "command": "~/.local/bin/oj",
-            "args": [
-                "g/o",
-                "--directory=\"${fileBasenameNoExtension}_case\"",
-                "-c",
-                "./${fileBasenameNoExtension}_go.exe"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "dependsOn": [
-                "build output generator"
-            ],
-            "problemMatcher": [],
-            "detail": "出力生成"
+            "detail": "Hackケース生成",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            }
         },
         {
             "type": "shell",
@@ -266,7 +301,15 @@
                 "build input generator"
             ],
             "problemMatcher": [],
-            "detail": "Hackケース生成(RE用)"
+            "detail": "Hackケース生成(RE用)",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            }
         },
         {
             "type": "shell",
@@ -274,10 +317,11 @@
             "command": "~/.local/bin/oj",
             "args": [
                 "g/i",
+                "--tle=2",
                 "--hack-actual",
                 "./${fileBasenameNoExtension}.exe",
                 "--directory=\"${fileBasenameNoExtension}_case\"",
-                "./${fileBasenameNoExtension}_gi.exe"
+                "./${fileBasenameNoExtension}_gi.exe",
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -287,7 +331,15 @@
                 "build input generator"
             ],
             "problemMatcher": [],
-            "detail": "Hackケース生成(RE,TLE用)"
+            "detail": "Hackケース生成(RE,TLE用)",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            }
         },
         {
             "type": "shell",
@@ -306,7 +358,15 @@
             },
             "dependsOn": [],
             "problemMatcher": [],
-            "detail": "現在開いているファイルを展開"
+            "detail": "現在開いているファイルを展開(クリップボードコピーのみ)",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            }
         },
         {
             "type": "shell",
@@ -318,14 +378,22 @@
                 "-I",
                 "${workspaceFolder}/algolib/src",
                 "${workspaceFolder}/ac-library",
-                "--save_output",
+                "--save_output"
             ],
             "options": {
                 "cwd": "${fileDirname}"
             },
             "dependsOn": [],
             "problemMatcher": [],
-            "detail": "現在開いているファイルを展開"
+            "detail": "現在開いているファイルを展開(ファイルを残す)",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            }
         }
     ],
     "inputs": [
