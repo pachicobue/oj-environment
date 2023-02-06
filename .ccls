@@ -1,6 +1,0 @@
-clang++
-%cpp -std=c++20
--I/home/sho/programming/contest/algolib/src
--I/home/sho/programming/contest/ac-library
--Wall
--Wextra

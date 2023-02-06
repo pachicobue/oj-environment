@@ -1,6 +1,9 @@
 # ccls output
 .ccls-cache
 
+# clangd cache
+.cache
+
 # python cache
 __pycache__
 
@@ -42,3 +45,7 @@ virtual
 *.exe
 *.out
 *.app
+
+# input/output
+*.in
+*.out
