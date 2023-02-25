@@ -49,3 +49,6 @@ virtual
 # input/output
 *.in
 *.out
+
+# contests
+contests

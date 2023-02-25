@@ -3,15 +3,22 @@
     // 既存の属性の説明をホバーして表示します。
     // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
+    "inputs": [
+        {
+            "id": "InputFile",
+            "type": "command",
+            "command": "oj-testcase-manager.pickTestcase"
+        },
+    ],
     "configurations": [
         {
-            "name": "(gdb) 入力ファイル",
+            "name": "gdb(入力ファイル選択)",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
             "args": [
                 "<",
-                "${fileBasenameNoExtension}_case/sample-1.in"
+                "${fileBasenameNoExtension}_case/${input:InputFile}"
             ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
@@ -23,47 +30,7 @@
                 {
                     "description": "gdb の再フォーマットを有効にする",
                     "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ]
-        },
-        {
-            "name": "(gdb) 標準入力",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": true,
-            "MIMode": "gdb",
-            "miDebuggerPath": "/usr/sbin/gdb",
-            "setupCommands": [
-                {
-                    "description": "gdb の再フォーマットを有効にする",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ]
-        },
-        {
-            "name": "(gdb) 起動",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "miDebuggerPath": "/usr/sbin/gdb",
-            "setupCommands": [
-                {
-                    "description": "gdb の再フォーマットを有効にする",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
+                    "ignoreFailures": true,
                 }
             ]
         }

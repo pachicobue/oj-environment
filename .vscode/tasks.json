@@ -1,257 +1,84 @@
 {
     "version": "2.0.0",
+    "options": {
+        "cwd": "${fileDirname}"
+    },
+    "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": true
+    },
+    "type": "shell",
+    "problemMatcher": [],
+    "inputs": [
+        {
+            "id": "URL",
+            "type": "promptString",
+            "description": "問題のURL"
+        },
+        {
+            "id": "InputFile",
+            "type": "command",
+            "command": "oj-testcase-manager.pickTestcase"
+        },
+        {
+            "id": "TL",
+            "description": "oj testコマンドのTL設定(単位は[秒])",
+            "type": "promptString",
+            "default": "3"
+        }
+    ],
     "tasks": [
         {
-            "type": "shell",
-            "label": "build",
-            "command": "/usr/sbin/g++",
+            "label": "Run on Single Input",
+            "detail": "現在開いているファイルを実行する(入力ファイル指定)",
+            "command": "./${fileBasenameNoExtension}.exe",
             "args": [
-                "${file}",
-                "-o",
-                "${fileBasenameNoExtension}.exe",
-                "-std=c++17",
-                "-O0",
-                "-g3",
-                "-Wall",
-                "-Wextra",
-                "-Wno-unknown-pragmas",
-                "-fsanitize=undefined",
-                "-D",
-                "HOGEPACHI",
-                "-D",
-                "_GLIBCXX_DEBUG",
-                "-I",
-                "${workspaceFolder}/algolib/src",
-                "-I",
-                "${workspaceFolder}/ac-library"
+                "<",
+                "${fileBasenameNoExtension}_case/${input:InputFile}"
             ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [],
-            "detail": "現在開いているファイルをビルドする",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "presentation": {
-                "echo": true,
-                "reveal": "silent",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
-            }
-        },
-        {
-            "type": "shell",
-            "label": "build(Release)",
-            "command": "/usr/sbin/g++",
-            "args": [
-                "${file}",
-                "-o",
-                "${fileBasenameNoExtension}.exe",
-                "-std=c++17",
-                "-O2",
-                "-Wall",
-                "-Wextra",
-                "-Wno-unknown-pragmas",
-                "-D",
-                "HOGEPACHI",
-                "-I",
-                "${workspaceFolder}/algolib/src",
-                "-I",
-                "${workspaceFolder}/ac-library"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [],
-            "detail": "現在開いているファイルをReleaseビルドする",
-            "presentation": {
-                "echo": true,
-                "reveal": "silent",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
-            }
-        },
-        {
-            "type": "shell",
-            "label": "build input generator",
-            "command": "/usr/sbin/g++",
-            "args": [
-                "${fileBasenameNoExtension}_gi.cpp",
-                "-D",
-                "HOGEPACHI",
-                "-o",
-                "${fileBasenameNoExtension}_gi.exe",
-                "-std=c++17",
-                "-O2",
-                "-I",
-                "${workspaceFolder}/algolib/src",
-                "-I",
-                "${workspaceFolder}/ac-library"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [],
-            "detail": "入力生成器をビルドする",
-            "presentation": {
-                "echo": true,
-                "reveal": "silent",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
-            }
-        },
-        {
-            "type": "shell",
-            "label": "build output generator",
-            "command": "/usr/sbin/g++",
-            "args": [
-                "${fileBasenameNoExtension}_go.cpp",
-                "-D",
-                "HOGEPACHI",
-                "-o",
-                "${fileBasenameNoExtension}_go.exe",
-                "-std=c++17",
-                "-O2",
-                "-I",
-                "${workspaceFolder}/algolib/src",
-                "-I",
-                "${workspaceFolder}/ac-library"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [],
-            "detail": "出力生成器をビルドする",
-            "presentation": {
-                "echo": true,
-                "reveal": "silent",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
-            }
-        },
-        {
-            "type": "shell",
-            "label": "clean",
-            "command": "rm",
-            "args": [
-                "-rf",
-                "${fileBasenameNoExtension}_case",
-                "${fileBasenameNoExtension}.exe"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "dependsOn": [],
-            "problemMatcher": [],
-            "detail": "テストケースを削除する",
-            "presentation": {
-                "echo": true,
-                "reveal": "silent",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
-            }
-        },
-        {
-            "type": "shell",
-            "label": "download",
-            "command": "~/.local/bin/oj",
-            "args": [
-                "dl",
-                "\"${input:URL}\"",
-                "--directory=\"${fileBasenameNoExtension}_case\""
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
             "dependsOn": [
-                "clean"
+                "Build(Debug)"
             ],
-            "problemMatcher": [],
-            "group": "test",
-            "detail": "テストケースをダウンロード",
             "presentation": {
-                "echo": true,
-                "reveal": "silent",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
+                "reveal": "always",
             }
         },
         {
-            "type": "shell",
-            "label": "test",
-            "command": "~/.local/bin/oj",
+            "label": "Test",
+            "detail": "現在開いているファイルをテストする",
+            "command": "oj",
             "args": [
                 "test",
                 "--directory=\"${fileBasenameNoExtension}_case\"",
                 "--command=\"./${fileBasenameNoExtension}.exe\""
             ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
             "dependsOn": [
-                "build"
-            ],
-            "problemMatcher": [],
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
-            "detail": "現在開いているファイルをテスト",
-            "presentation": {
-                "echo": true,
-                "reveal": "silent",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
-            }
+                "Build(Debug)"
+            ]
         },
         {
-            "type": "shell",
-            "label": "test(TLE)",
-            "command": "~/.local/bin/oj",
+            "label": "Test(TLE)",
+            "detail": "現在開いているファイルをテストする(TLEチェック)",
+            "command": "oj",
             "args": [
                 "test",
                 "--tle",
-                "2",
+                "${input:TL}",
                 "--directory=\"${fileBasenameNoExtension}_case\"",
                 "--command=\"./${fileBasenameNoExtension}.exe\""
             ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
             "dependsOn": [
-                "build(Release)"
-            ],
-            "problemMatcher": [],
-            "detail": "現在開いているファイルをテスト(TLE)",
-            "presentation": {
-                "echo": true,
-                "reveal": "silent",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
-            }
+                "Build(Release)"
+            ]
         },
         {
-            "type": "shell",
-            "label": "hack",
-            "command": "~/.local/bin/oj",
+            "label": "Generate Hack Case",
+            "detail": "Hackケースを生成する(出力比較)",
+            "command": "oj",
             "args": [
                 "g/i",
                 "--hack-actual",
@@ -261,116 +88,70 @@
                 "--directory=\"${fileBasenameNoExtension}_case\"",
                 "./${fileBasenameNoExtension}_gi.exe"
             ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
             "dependsOn": [
-                "build",
-                "build input generator",
-                "build output generator"
+                "Build(Debug)",
+                "Build Input Generator(Release)",
+                "Build Output Generator(Release)"
             ],
-            "problemMatcher": [],
-            "detail": "Hackケース生成",
             "presentation": {
-                "echo": true,
                 "reveal": "always",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
             }
         },
         {
-            "type": "shell",
-            "label": "hack(RE)",
-            "command": "~/.local/bin/oj",
+            "label": "Generate Hack Case(RE)",
+            "detail": "Hackケースを生成する(REチェック)",
+            "command": "oj",
             "args": [
                 "g/i",
-                "--tle",
-                "3",
                 "--hack-actual",
                 "./${fileBasenameNoExtension}.exe",
                 "--directory=\"${fileBasenameNoExtension}_case\"",
                 "./${fileBasenameNoExtension}_gi.exe"
             ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
             "dependsOn": [
-                "build",
-                "build input generator"
+                "Build(Debug)",
+                "Build Input Generator(Release)"
             ],
-            "problemMatcher": [],
-            "detail": "Hackケース生成(RE用)",
             "presentation": {
-                "echo": true,
                 "reveal": "always",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
             }
         },
         {
-            "type": "shell",
-            "label": "hack(RE/TLE)",
-            "command": "~/.local/bin/oj",
+            "label": "Generate Hack Case(TLE)",
+            "detail": "Hackケースを生成する(TLEチェック)",
+            "command": "oj",
             "args": [
                 "g/i",
-                "--tle=2",
+                "--tle=${input:TL}",
                 "--hack-actual",
                 "./${fileBasenameNoExtension}.exe",
                 "--directory=\"${fileBasenameNoExtension}_case\"",
-                "./${fileBasenameNoExtension}_gi.exe",
+                "./${fileBasenameNoExtension}_gi.exe"
             ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
             "dependsOn": [
-                "build(Release)",
-                "build input generator"
+                "Build(Release)",
+                "Build Input Generator(Release)"
             ],
-            "problemMatcher": [],
-            "detail": "Hackケース生成(RE,TLE用)",
             "presentation": {
-                "echo": true,
                 "reveal": "always",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
             }
         },
         {
-            "type": "shell",
-            "label": "expand",
-            "command": "python3",
+            "label": "Download Testcases",
+            "detail": "テストケースをダウンロードする",
+            "command": "oj",
             "args": [
-                "${workspaceFolder}/tools/expander/main.py",
-                "${file}",
-                "-I",
-                "${workspaceFolder}/algolib/src",
-                "${workspaceFolder}/ac-library",
-                "--save_to_clipboard"
+                "dl",
+                "\"${input:URL}\"",
+                "--directory=\"${fileBasenameNoExtension}_case\""
             ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "dependsOn": [],
-            "problemMatcher": [],
-            "detail": "現在開いているファイルを展開(クリップボードコピーのみ)",
-            "presentation": {
-                "echo": true,
-                "reveal": "silent",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
-            }
+            "dependsOn": [
+                "Delete Testcases"
+            ]
         },
         {
-            "type": "shell",
-            "label": "expand(file)",
+            "label": "Expand File",
+            "detail": "現在開いているファイルを展開する(ファイル作成)",
             "command": "python3",
             "args": [
                 "${workspaceFolder}/tools/expander/main.py",
@@ -379,28 +160,104 @@
                 "${workspaceFolder}/algolib/src",
                 "${workspaceFolder}/ac-library",
                 "--save_output"
-            ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "dependsOn": [],
-            "problemMatcher": [],
-            "detail": "現在開いているファイルを展開(ファイルを残す)",
-            "presentation": {
-                "echo": true,
-                "reveal": "silent",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
-            }
-        }
-    ],
-    "inputs": [
+            ]
+        },
         {
-            "id": "URL",
-            "type": "promptString",
-            "description": "URL of problem"
+            "label": "PreCompile algolib",
+            "detail": "algolibのheader.hppをプリコンパイルする",
+            "dependsOn": [
+                "PreCompile header.hpp(Debug)",
+                "PreCompile header.hpp(Release)"
+            ]
+        },
+        {
+            "label": "Build(Debug)",
+            "detail": "現在開いているファイルをDebugビルドする",
+            "hide": true,
+            "command": "$CXX_COMPILER",
+            "args": [
+                "${file}",
+                "$CXX_COMMON_OPTIONS",
+                "$CXX_DEBUG_OPTIONS",
+                "-o",
+                "${fileBasenameNoExtension}.exe"
+            ]
+        },
+        {
+            "label": "Build(Release)",
+            "detail": "現在開いているファイルをReleaseビルドする",
+            "hide": true,
+            "command": "$CXX_COMPILER",
+            "args": [
+                "${file}",
+                "$CXX_COMMON_OPTIONS",
+                "$CXX_RELEASE_OPTIONS",
+                "-o",
+                "${fileBasenameNoExtension}.exe"
+            ]
+        },
+        {
+            "label": "PreCompile header.hpp(Debug)",
+            "detail": "algolibのheader.hppをDebugビルドでプリコンパイルする",
+            "hide": true,
+            "command": "$CXX_COMPILER",
+            "args": [
+                "{$ALGOLIB_PATH}/src/header.hpp",
+                "$CXX_COMMON_OPTIONS",
+                "$CXX_DEBUG_OPTIONS",
+                "-o",
+                "{$ALGOLIB_PATH}/src/header.hpp.gch/header.hpp.dg++.gch"
+            ]
+        },
+        {
+            "label": "PreCompile header.hpp(Release)",
+            "detail": "algolibのheader.hppをReleaseビルドでプリコンパイルする",
+            "hide": true,
+            "command": "$CXX_COMPILER",
+            "args": [
+                "{$ALGOLIB_PATH}/src/header.hpp",
+                "$CXX_COMMON_OPTIONS",
+                "$CXX_RELEASE_OPTIONS",
+                "-o",
+                "{$ALGOLIB_PATH}/src/header.hpp.gch/header.hpp.fg++.gch"
+            ]
+        },
+        {
+            "label": "Build Input Generator(Release)",
+            "detail": "現在開いているファイルに対応する入力生成器をReleaseビルドする",
+            "hide": true,
+            "command": "$CXX_COMPILER",
+            "args": [
+                "${fileBasenameNoExtension}_gi.cpp",
+                "$CXX_COMMON_OPTIONS",
+                "$CXX_RELEASE_OPTIONS",
+                "-o",
+                "${fileBasenameNoExtension}_gi.exe"
+            ]
+        },
+        {
+            "label": "Build Output Generator(Release)",
+            "detail": "現在開いているファイルに対応する出力生成器をReleaseビルドする",
+            "hide": true,
+            "command": "$CXX_COMPILER",
+            "args": [
+                "${fileBasenameNoExtension}_go.cpp",
+                "$CXX_COMMON_OPTIONS",
+                "$CXX_RELEASE_OPTIONS",
+                "-o",
+                "${fileBasenameNoExtension}_go.exe"
+            ]
+        },
+        {
+            "label": "Delete Testcases",
+            "detail": "テストケースを削除する",
+            "hide": true,
+            "command": "rm",
+            "args": [
+                "-rf",
+                "${fileBasenameNoExtension}_case",
+                "${fileBasenameNoExtension}.exe"
+            ]
         }
     ]
 }
