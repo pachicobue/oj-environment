@@ -7,7 +7,7 @@
         {
             "id": "InputFile",
             "type": "command",
-            "command": "oj-testcase-manager.pickTestcase"
+            "command": "vscode-oj-input-picker.pickTestcase"
         },
     ],
     "configurations": [
