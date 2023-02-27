@@ -16,19 +16,14 @@
     ```sh
     $ git submodule update --init
     ```
-2. fishのC++コンパイル用設定をinstall
+2. fishのC++コンパイル用設定をインストールする
    1. コンパイル周りのconfigを `~/.config/fish/conf.d` にコピー
         ```sh
         $ python3 tools/installer/main.py
         ```
-   2. fishを再起動すると`dg++,fg++`などのアイリアス関数が使える
+   2. fishを再起動すると`dg++,fg++`などのalias関数が使える
 3. vscode-extensionをインストール
-   1. vsixファイルを生成
-        ```sh
-        $ cd vscode-extensions/vscode-oj-input-picker
-        $ npx vsce package
-        ```
-   2. vscodeの「VSIXからインストール」で拡張機能をインストール
+    - [vscode-oj-input0picker](https://github.com/pachicobue/vscode-oj-input-picker)
 
 ## submodule を更新する
 ```sh
