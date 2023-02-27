@@ -157,8 +157,8 @@
                 "${workspaceFolder}/tools/expander/main.py",
                 "${file}",
                 "-I",
-                "${workspaceFolder}/algolib/src",
-                "${workspaceFolder}/ac-library",
+                "{$ALGOLIB_PATH}/src",
+                "{$ACL_PATH}/ac-library",
                 "--save_output"
             ]
         },

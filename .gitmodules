@@ -4,3 +4,6 @@
 [submodule "ac-library"]
 	path = ac-library
 	url = https://github.com/atcoder/ac-library.git
+[submodule "vscode-extensions/vscode-oj-input-picker"]
+	path = vscode-extensions/vscode-oj-input-picker
+	url = git@github.com:pachicobue/vscode-oj-input-picker.git
