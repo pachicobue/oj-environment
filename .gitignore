@@ -1,54 +1,19 @@
-# ccls output
-.ccls-cache
-
-# clangd cache
+# Clangd Cache
 .cache
 
-# python cache
+# Python Cache
 __pycache__
-
-# dummy headers
-tools/expander/dummy_headers
-
-# Answer
-virtual
-
-# Prerequisites
-*.d
-
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
 
 # Precompiled Headers
 *.gch
 *.pch
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
 # Executables
 *.exe
 *.out
-*.app
 
-# input/output
-*.in
-*.out
-
-# contests
+# Contests
 contests
+
+# dummy headers
+tools/expander/dummy_headers
