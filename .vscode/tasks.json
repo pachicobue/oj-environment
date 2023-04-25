@@ -200,6 +200,7 @@
             "hide": true,
             "command": "mkdir",
             "args": [
+                "-p",
                 "{$ALGOLIB_PATH}/src/header.hpp.gch"
             ]
         },
