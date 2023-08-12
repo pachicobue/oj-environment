@@ -1,0 +1,4 @@
+{
+    "python": "${workspaceFolder}/.venv/bin/python",
+    "oj": "${workspaceFolder}/.venv/bin/oj"
+}

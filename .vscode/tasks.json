@@ -50,7 +50,7 @@
         {
             "label": "Test",
             "detail": "現在開いているファイルをテストする",
-            "command": "oj",
+            "command": "${config:oj}",
             "args": [
                 "test",
                 "--directory=\"${fileBasenameNoExtension}_case\"",
@@ -63,7 +63,7 @@
         {
             "label": "Test(TLE)",
             "detail": "現在開いているファイルをテストする(TLEチェック)",
-            "command": "oj",
+            "command": "${config:oj}",
             "args": [
                 "test",
                 "--tle",
@@ -76,11 +76,25 @@
             ]
         },
         {
+            "label": "Test Reactive",
+            "detail": "現在開いているファイルをテストする（リアクティブ）",
+            "command": "${config:oj}",
+            "args": [
+                "test-reactive",
+                "--command=\"./${fileBasenameNoExtension}.exe\"",
+                "./${fileBasenameNoExtension}_judge.exe"
+            ],
+            "dependsOn": [
+                "Build(Debug)",
+                "Build Judge(Release)"
+            ]
+        },
+        {
             "label": "Generate Hack Case",
             "detail": "Hackケースを生成する(出力比較)",
-            "command": "oj",
+            "command": "${config:oj}",
             "args": [
-                "g/i",
+                "generate-input",
                 "--hack-actual",
                 "./${fileBasenameNoExtension}.exe",
                 "--hack-expected",
@@ -100,9 +114,9 @@
         {
             "label": "Generate Hack Case(RE)",
             "detail": "Hackケースを生成する(REチェック)",
-            "command": "oj",
+            "command": "${config:oj}",
             "args": [
-                "g/i",
+                "generate-input",
                 "--hack-actual",
                 "./${fileBasenameNoExtension}.exe",
                 "--directory=\"${fileBasenameNoExtension}_case\"",
@@ -119,9 +133,9 @@
         {
             "label": "Generate Hack Case(TLE)",
             "detail": "Hackケースを生成する(TLEチェック)",
-            "command": "oj",
+            "command": "${config:oj}",
             "args": [
-                "g/i",
+                "generate-input",
                 "--tle=${input:TL}",
                 "--hack-actual",
                 "./${fileBasenameNoExtension}.exe",
@@ -139,7 +153,7 @@
         {
             "label": "Download Testcases",
             "detail": "テストケースをダウンロードする",
-            "command": "oj",
+            "command": "${config:oj}",
             "args": [
                 "dl",
                 "\"${input:URL}\"",
@@ -150,16 +164,32 @@
             ]
         },
         {
-            "label": "Expand File",
-            "detail": "現在開いているファイルを展開する(ファイル作成)",
-            "command": "python3",
+            "label": "Expand File with Comments",
+            "detail": "現在開いているファイルを展開する(コメント付き)",
+            "command": "${config:python}",
             "args": [
                 "${workspaceFolder}/tools/expander/main.py",
                 "${file}",
                 "-I",
                 "{$ALGOLIB_PATH}/src",
-                "{$ACL_PATH}/ac-library",
+                "{$ACL_PATH}",
+                "--save_to_clipboard",
                 "--save_output"
+            ]
+        },
+        {
+            "label": "Expand File without Comments",
+            "detail": "現在開いているファイルを展開する(コメント削除)",
+            "command": "${config:python}",
+            "args": [
+                "${workspaceFolder}/tools/expander/main.py",
+                "${file}",
+                "-I",
+                "{$ALGOLIB_PATH}/src",
+                "{$ACL_PATH}",
+                "--save_to_clipboard",
+                "--save_output",
+                "--delete_comments"
             ]
         },
         {
@@ -250,6 +280,18 @@
                 "$CXX_RELEASE_OPTIONS",
                 "-o",
                 "${fileBasenameNoExtension}_go.exe"
+            ]
+        },
+        {
+            "label": "Build Judge(Release)",
+            "hide": false,
+            "command": "$CXX_COMPILER",
+            "args": [
+                "${fileBasenameNoExtension}_judge.cpp",
+                "$CXX_COMMON_OPTIONS",
+                "$CXX_RELEASE_OPTIONS",
+                "-o",
+                "${fileBasenameNoExtension}_judge.exe"
             ]
         },
         {

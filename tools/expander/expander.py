@@ -1,6 +1,6 @@
-import pyperclip
 import subprocess
 import re
+from subprocess import Popen, PIPE
 from pathlib import Path
 from logging import getLogger, Logger
 from typing import *
@@ -11,7 +11,7 @@ _logger = getLogger(__name__)  # type:Logger
 
 class Expander:
     def __init__(
-        self, source_filename: str, include_dir_names: List[str], definitions: List[str]
+        self, source_filename: str, include_dir_names: List[str], definitions: List[str], delete_comments: bool
     ):
         self.source_file_path = Path(source_filename).resolve()  # type:Path
         self.output_file_path = self.source_file_path.with_name(
@@ -30,6 +30,7 @@ class Expander:
             self.include_directories.append(include_path)
 
         self.definitions = definitions  # type:List[str]
+        self.delete_comments = delete_comments # type:bool
 
     def expand_include(self) -> None:
         commands = [
@@ -40,12 +41,14 @@ class Expander:
             "-nostdinc",
             "-E",
             "-P",
-            "-C",
         ]
+        if not self.delete_comments:
+            commands.append("-C")
         for macro in self.definitions:
             commands.append("-D")
             commands.append(macro)
         for directory in self.include_directories:
+            print(directory);
             commands.append("-I")
             commands.append(str(directory))
         subprocess.run(commands, cwd=self.source_file_path.parent)
@@ -58,7 +61,7 @@ class Expander:
             with open(str(self.output_file_path), mode="w") as f:
                 f.write(output)
         if save_to_clipboard:
-            pyperclip.copy(output)
+            self._save_to_clipboard(output)
 
     def _beautify_output(self, source: str) -> str:
         headers = set()
@@ -73,3 +76,7 @@ class Expander:
             else:
                 output += line + "\n"
         return "\n".join(headers) + "\n" + output
+
+    def _save_to_clipboard(self, output: str) -> None:
+        p = Popen(['xsel', '-bi'], stdin=PIPE)
+        p.communicate(input=output.encode('utf-8'))

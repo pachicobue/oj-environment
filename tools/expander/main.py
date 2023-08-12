@@ -18,6 +18,7 @@ def expand(args: Namespace):
             " --include_directories={}\n"
             " --definitions={}\n"
             " --log_level={}\n"
+            " --delete-comment={}\n"
             " --save_to_clipboard={}\n"
             " --save_output={}"
         ).format(
@@ -25,6 +26,7 @@ def expand(args: Namespace):
             args.include_directories,
             args.definitions,
             args.log_level,
+            args.delete_comments,
             args.save_to_clipboard,
             args.save_output,
         )
@@ -35,7 +37,7 @@ def expand(args: Namespace):
     include_directories.append(str(dummy_include_dir))
 
     expander = Expander(
-        args.source_file_name, include_directories, args.definitions
+        args.source_file_name, include_directories, args.definitions, args.delete_comments
     )  # type:Expander
     expander.expand_include()
     expander.post_process(args.save_output, args.save_to_clipboard)
@@ -43,7 +45,7 @@ def expand(args: Namespace):
 
 if __name__ == "__main__":
     parser = ArgumentParser(
-        description="Expand '#include \"my/lib\"' from given source code."
+        description="Expand '#include \"my/lib\"' in source code."
     )
     parser.add_argument("source_file_name", help="Name of source")
     parser.add_argument("-I", "--include_directories", nargs="*", default=[])
@@ -54,6 +56,7 @@ if __name__ == "__main__":
         choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
         default="WARNING",
     )
+    parser.add_argument("--delete_comments", action="store_true")
     parser.add_argument("--save_to_clipboard", action="store_true")
     parser.add_argument("--save_output", action="store_true")
 
