@@ -193,6 +193,20 @@
             ]
         },
         {
+            "label": "Expand File without Comments and File",
+            "detail": "現在開いているファイルを展開する(コメント削除,ファイル生成なし)",
+            "command": "${config:python}",
+            "args": [
+                "${workspaceFolder}/tools/expander/main.py",
+                "${file}",
+                "-I",
+                "{$ALGOLIB_PATH}/src",
+                "{$ACL_PATH}",
+                "--save_to_clipboard",
+                "--delete_comments"
+            ]
+        },
+        {
             "label": "PreCompile algolib",
             "detail": "algolibのheader.hppをプリコンパイルする",
             "dependsOn": [
