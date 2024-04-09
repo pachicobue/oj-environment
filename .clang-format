@@ -51,7 +51,7 @@ IndentWrappedFunctionNames: true
 KeepEmptyLinesAtTheStartOfBlocks: true
 LambdaBodyIndentation: Signature
 Language: Cpp
-MaxEmptyLinesToKeep: 2
+MaxEmptyLinesToKeep: 10
 NamespaceIndentation: None
 PackConstructorInitializers: NextLine
 PointerAlignment: Left
@@ -81,7 +81,6 @@ SpacesInSquareBrackets: false
 Standard: Latest
 TabWidth: 4
 UseTab: Never
-BreakBeforeBraces: Custom
 BraceWrapping:
   AfterCaseLabel: false
   AfterClass: true

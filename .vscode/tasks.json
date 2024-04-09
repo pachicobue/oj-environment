@@ -171,8 +171,8 @@
                 "${workspaceFolder}/tools/expander/main.py",
                 "${file}",
                 "-I",
-                "{$ALGOLIB_PATH}/src",
-                "{$ACL_PATH}",
+                "${env:ALGOLIB_PATH}/src",
+                "${env:ACL_PATH}",
                 "--save_to_clipboard",
                 "--save_output"
             ]
@@ -185,8 +185,8 @@
                 "${workspaceFolder}/tools/expander/main.py",
                 "${file}",
                 "-I",
-                "{$ALGOLIB_PATH}/src",
-                "{$ACL_PATH}",
+                "${env:ALGOLIB_PATH}/src",
+                "${env:ACL_PATH}",
                 "--save_to_clipboard",
                 "--save_output",
                 "--delete_comments"
@@ -200,8 +200,8 @@
                 "${workspaceFolder}/tools/expander/main.py",
                 "${file}",
                 "-I",
-                "{$ALGOLIB_PATH}/src",
-                "{$ACL_PATH}",
+                "${env:ALGOLIB_PATH}/src",
+                "${env:ACL_PATH}",
                 "--save_to_clipboard",
                 "--delete_comments"
             ]
@@ -218,25 +218,17 @@
         {
             "label": "Build(Debug)",
             "hide": true,
-            "command": "$CXX_COMPILER",
+            "command": "dg++",
             "args": [
                 "${file}",
-                "$CXX_COMMON_OPTIONS",
-                "$CXX_DEBUG_OPTIONS",
-                "-o",
-                "${fileBasenameNoExtension}.exe"
             ]
         },
         {
             "label": "Build(Release)",
             "hide": true,
-            "command": "$CXX_COMPILER",
+            "command": "fg++",
             "args": [
                 "${file}",
-                "$CXX_COMMON_OPTIONS",
-                "$CXX_RELEASE_OPTIONS",
-                "-o",
-                "${fileBasenameNoExtension}.exe"
             ]
         },
         {
@@ -245,67 +237,47 @@
             "command": "mkdir",
             "args": [
                 "-p",
-                "{$ALGOLIB_PATH}/src/header.hpp.gch"
+                "${env:ALGOLIB_PATH}/src/header.hpp.gch"
             ]
         },
         {
             "label": "PreCompile header.hpp(Debug)",
             "hide": true,
-            "command": "$CXX_COMPILER",
+            "command": "dgch",
             "args": [
-                "{$ALGOLIB_PATH}/src/header.hpp",
-                "$CXX_COMMON_OPTIONS",
-                "$CXX_DEBUG_OPTIONS",
-                "-o",
-                "{$ALGOLIB_PATH}/src/header.hpp.gch/header.hpp.dg++.gch"
+                "${env:ALGOLIB_PATH}/src/header.hpp",
             ]
         },
         {
             "label": "PreCompile header.hpp(Release)",
             "hide": true,
-            "command": "$CXX_COMPILER",
+            "command": "fgch",
             "args": [
-                "{$ALGOLIB_PATH}/src/header.hpp",
-                "$CXX_COMMON_OPTIONS",
-                "$CXX_RELEASE_OPTIONS",
-                "-o",
-                "{$ALGOLIB_PATH}/src/header.hpp.gch/header.hpp.fg++.gch"
+                "${env:ALGOLIB_PATH}/src/header.hpp",
             ]
         },
         {
             "label": "Build Input Generator(Release)",
             "hide": true,
-            "command": "$CXX_COMPILER",
+            "command": "fg++",
             "args": [
                 "${fileBasenameNoExtension}_gi.cpp",
-                "$CXX_COMMON_OPTIONS",
-                "$CXX_RELEASE_OPTIONS",
-                "-o",
-                "${fileBasenameNoExtension}_gi.exe"
             ]
         },
         {
             "label": "Build Output Generator(Release)",
             "hide": true,
-            "command": "$CXX_COMPILER",
+            "command": "fg++",
             "args": [
                 "${fileBasenameNoExtension}_go.cpp",
-                "$CXX_COMMON_OPTIONS",
-                "$CXX_RELEASE_OPTIONS",
-                "-o",
-                "${fileBasenameNoExtension}_go.exe"
             ]
         },
         {
             "label": "Build Judge(Release)",
             "hide": false,
-            "command": "$CXX_COMPILER",
+            "command": "fg++",
             "args": [
                 "${fileBasenameNoExtension}_judge.cpp",
-                "$CXX_COMMON_OPTIONS",
-                "$CXX_RELEASE_OPTIONS",
-                "-o",
-                "${fileBasenameNoExtension}_judge.exe"
             ]
         },
         {
