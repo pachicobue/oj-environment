@@ -78,5 +78,6 @@ class Expander:
         return "\n".join(headers) + "\n" + output
 
     def _save_to_clipboard(self, output: str) -> None:
-        p = Popen(['xsel', '-bi'], stdin=PIPE)
-        p.communicate(input=output.encode('utf-8'))
+        subprocess.run("clip.exe", input=output, text=True)
+        # p = Popen(['xsel', '-bi'], stdin=PIPE)
+        # p.communicate(input=output.encode('utf-8'))
